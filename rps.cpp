@@ -19,34 +19,60 @@ int main() {
         
         std::cout << "1. Rock\n2. Paper\n3. Scissors\n(Type 1, 2, or 3): ";
         std::cin >> currUserInput;
+        if (std::cin.fail()) {
+            std::cin.clear();  
+            std::cin.ignore(999999999999, '\n');
+            std::cout << "\nInvalid option, please enter 1-3 for rock, paper, scissors\n\n";
+            i--;
+            std::cout << "Press enter to continue...";
+            std::cin.get();
+            #ifdef _WIN32
+                system("cls");
+            #else
+                system("clear");
+            #endif
+            continue;
+        }
         
         didWinRound = winRoundCheck(currUserInput);
         
-        switch (didWinRound){
-            case 0:
-                i--;
-                break;
-            case 1:
-                userScore++;
-                break;
-            case 2:
-                cpuScore++;
-                break;
-            case 3:
-                i--;
-                break;
-        }
+            switch (didWinRound){
+                case 0:
+                    i--;
+                    break;
+                case 1:
+                    userScore++;
+                    break;
+                case 2:
+                    cpuScore++;
+                    break;
+                case 3:
+                    
+                    std::cin.clear();  
+                    std::cin.ignore(999999999999, '\n');  
+                    std::cout << "\nInvalid option, please enter 1-3 for rock, paper, scissors\n\n";
+                    i--;
+                    std::cout << "Press enter to continue...";
+                    std::cin.ignore();
+                    std::cin.get();
+                    #ifdef _WIN32
+                        system("cls");
+                    #else
+                        system("clear");
+                    #endif
+                    continue;
+            }
         
-        std::cout << '\n' << userScore << " - " << cpuScore << "\n\n";
+            std::cout << '\n' << userScore << " - " << cpuScore << "\n\n";
         
-        std::cout << "Press enter to continue...";
-        std::cin.ignore();
-        std::cin.get();
-        #ifdef _WIN32
-            system("cls");
-        #else
-            system("clear");
-        #endif
+            std::cout << "Press enter to continue...";
+            std::cin.ignore();
+            std::cin.get();
+            #ifdef _WIN32
+                system("cls");
+            #else
+                system("clear");
+            #endif
 	}
 	
 	std::cout << "Score:\nUser: " << userScore << "\nCPU: " << cpuScore;
@@ -94,7 +120,6 @@ int winRoundCheck(int currUserInput){
                 return 0;
             }
         default:
-            std::cout << "\nInvalid option, please enter 1-3 for rock, paper, scissors";
             return 3;
     }
     
